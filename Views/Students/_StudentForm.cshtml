@@ -1,0 +1,40 @@
+@model StudentManagement.Models.StudentFormModel
+<form asp-controller="Students" asp-action="Save" data-ajax-form>
+    @Html.AntiForgeryToken()
+    <div class="modal-header">
+        <div><p class="eyebrow mb-1">HỒ SƠ SINH VIÊN</p><h2 class="modal-title fs-5">@(Model.Id == 0 ? "Thêm sinh viên" : "Cập nhật sinh viên")</h2></div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger d-none" data-form-error role="alert"></div>
+        @if (Model.Id != 0)
+        {
+            <div class="mb-3"><label class="form-label">Mã sinh viên</label><input class="form-control" value="Mã được giữ nguyên khi sửa" disabled /></div>
+        }
+        <div class="mb-3">
+            <label asp-for="Name" class="form-label">Họ và tên</label>
+            <input asp-for="Name" class="form-control" autocomplete="name" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Email" class="form-label">Email</label>
+            <input asp-for="Email" class="form-control" type="email" autocomplete="email" />
+            <span asp-validation-for="Email" class="text-danger small"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="DepartmentId" class="form-label">Khoa</label>
+            <select asp-for="DepartmentId" asp-items="ViewBag.Departments" class="form-select"><option value="">Chọn khoa</option></select>
+            <span asp-validation-for="DepartmentId" class="text-danger small"></span>
+        </div>
+        <div class="row g-2">
+            <div class="col-4"><label asp-for="AdmissionYear" class="form-label">Năm vào học</label><input asp-for="AdmissionYear" class="form-control" type="number" readonly="@(Model.Id != 0 ? "readonly" : null)" /><span asp-validation-for="AdmissionYear" class="text-danger small"></span></div>
+            <div class="col-4"><label asp-for="ProgramCode" class="form-label">Mã hệ</label><input asp-for="ProgramCode" class="form-control" inputmode="numeric" maxlength="2" readonly="@(Model.Id != 0 ? "readonly" : null)" /><span asp-validation-for="ProgramCode" class="text-danger small"></span></div>
+            <div class="col-4"><label asp-for="MajorCode" class="form-label">Mã ngành</label><input asp-for="MajorCode" class="form-control" inputmode="numeric" maxlength="2" readonly="@(Model.Id != 0 ? "readonly" : null)" /><span asp-validation-for="MajorCode" class="text-danger small"></span></div>
+        </div>
+        @if (Model.Id == 0)
+        {
+            <p class="form-text mb-0 mt-3">Mã sinh viên được tạo tự động theo năm, hệ đào tạo, ngành và số thứ tự tiếp theo.</p>
+        }
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button><button type="submit" class="btn btn-primary">Lưu hồ sơ</button></div>
+</form>

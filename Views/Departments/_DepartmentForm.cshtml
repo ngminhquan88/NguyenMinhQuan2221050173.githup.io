@@ -1,0 +1,16 @@
+@model StudentManagement.Models.Department
+<form asp-controller="Departments" asp-action="Save" data-ajax-form>
+    @Html.AntiForgeryToken()
+    <input asp-for="DepartmentId" type="hidden" />
+    <div class="modal-header">
+        <div><p class="eyebrow mb-1">DANH MỤC ĐÀO TẠO</p><h2 class="modal-title fs-5">@(Model.DepartmentId == 0 ? "Thêm khoa" : "Cập nhật khoa")</h2></div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-danger d-none" data-form-error role="alert"></div>
+        <label asp-for="DepartmentName" class="form-label">Tên khoa</label>
+        <input asp-for="DepartmentName" class="form-control" autofocus />
+        <span asp-validation-for="DepartmentName" class="text-danger small"></span>
+    </div>
+    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button><button type="submit" class="btn btn-primary">Lưu khoa</button></div>
+</form>
