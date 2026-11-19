@@ -2,9 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentManagement.Data;
 using StudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using StudentManagement.Authorization;
 
 namespace StudentManagement.Controllers;
 
+[Authorize(Policy = PermissionPolicyProvider.PolicyName)]
 public class DepartmentsController(ApplicationDbContext db) : Controller
 {
     public async Task<IActionResult> Index()

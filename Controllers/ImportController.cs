@@ -3,9 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentManagement.Data;
 using StudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using StudentManagement.Authorization;
 
 namespace StudentManagement.Controllers;
 
+[Authorize(Policy = PermissionPolicyProvider.PolicyName)]
 public class ImportController(ApplicationDbContext db) : Controller
 {
     private const long MaximumFileSize = 10 * 1024 * 1024;

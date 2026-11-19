@@ -1,9 +1,12 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using StudentManagement.Models;
+using Microsoft.AspNetCore.Authorization;
+using StudentManagement.Authorization;
 
 namespace StudentManagement.Controllers;
 
+[Authorize(Policy = PermissionPolicyProvider.PolicyName)]
 public class HomeController : Controller
 {
     public IActionResult Hello()

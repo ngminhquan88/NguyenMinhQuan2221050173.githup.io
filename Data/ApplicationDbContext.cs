@@ -10,6 +10,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<Student> Students => Set<Student>();
     public DbSet<Department> Departments => Set<Department>();
+    public DbSet<RolePermission> RolePermissions => Set<RolePermission>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -28,5 +29,9 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             .WithOne(student => student.Department)
             .HasForeignKey(student => student.DepartmentId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        builder.Entity<RolePermission>()
+            .HasIndex(permission => new { permission.RoleName, permission.PermissionKey })
+            .IsUnique();
     }
 }

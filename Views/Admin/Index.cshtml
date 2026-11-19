@@ -1,0 +1,64 @@
+@model StudentManagement.Models.AdminDashboardModel
+@{
+    ViewData["Title"] = "Quản trị hệ thống";
+}
+
+<section class="page-heading">
+    <div><p class="eyebrow">TÀI KHOẢN VÀ PHÂN QUYỀN</p><h1>Quản trị hệ thống</h1></div>
+</section>
+
+<section class="admin-section">
+    <h2>Role</h2>
+    <form asp-action="SaveRole" data-ajax-form class="row g-2 align-items-end mb-3">
+        @Html.AntiForgeryToken()
+        <div class="col-sm-8"><label class="form-label" for="roleName">Tên role mới</label><input id="roleName" class="form-control" name="name" maxlength="64" required /></div>
+        <div class="col-sm-4"><button class="btn btn-primary w-100" type="submit">Tạo role</button></div>
+    </form>
+    <div class="data-table-wrap table-responsive">
+        <table class="table align-middle mb-0"><thead><tr><th>Tên role</th><th>Số quyền</th><th class="text-end">Thao tác</th></tr></thead><tbody>
+        @foreach (var role in Model.Roles)
+        {
+            <tr><td class="fw-semibold">@role.Name</td><td>@role.Permissions.Count</td><td class="text-end">
+                @if (role.Name != "Admin")
+                {
+                    <form asp-action="DeleteRole" data-ajax-form class="d-inline">
+                        @Html.AntiForgeryToken()<input type="hidden" name="name" value="@role.Name" />
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Xóa</button>
+                    </form>
+                }
+            </td></tr>
+        }
+        </tbody></table>
+    </div>
+</section>
+
+<section class="admin-section">
+    <h2>Gán role cho người dùng</h2>
+    <form asp-action="AssignRole" data-ajax-form class="row g-2 align-items-end">
+        @Html.AntiForgeryToken()
+        <div class="col-md-4"><label class="form-label" for="userEmail">Người dùng</label><select class="form-select" id="userEmail" name="email" required><option value="">Chọn email</option>@foreach (var user in Model.Users){<option value="@user.Email">@user.Email</option>}</select></div>
+        <div class="col-md-3"><label class="form-label" for="userRole">Role</label><select class="form-select" id="userRole" name="roleName" required><option value="">Chọn role</option>@foreach (var role in Model.Roles){<option value="@role.Name">@role.Name</option>}</select></div>
+        <div class="col-md-3"><label class="form-label" for="operation">Thao tác</label><select class="form-select" id="operation" name="operation"><option value="add">Gán role</option><option value="remove">Gỡ role</option></select></div>
+        <div class="col-md-2"><button class="btn btn-primary w-100" type="submit">Cập nhật</button></div>
+    </form>
+</section>
+
+<section class="admin-section">
+    <h2>Quyền theo action</h2>
+    @foreach (var role in Model.Roles.Where(role => role.Name != "Admin"))
+    {
+        <details class="permission-group">
+            <summary>@role.Name <span class="text-secondary">(@role.Permissions.Count quyền)</span></summary>
+            <form asp-action="SavePermissions" data-ajax-form class="pt-3">
+                @Html.AntiForgeryToken()<input type="hidden" name="roleName" value="@role.Name" />
+                <div class="permission-grid">
+                    @foreach (var permission in Model.PermissionKeys)
+                    {
+                        <label class="form-check"><input class="form-check-input" type="checkbox" name="permissionKeys" value="@permission" checked="@role.Permissions.Contains(permission)" /><span class="form-check-label">@permission</span></label>
+                    }
+                </div>
+                <button class="btn btn-sm btn-primary mt-3" type="submit">Lưu quyền</button>
+            </form>
+        </details>
+    }
+</section>
