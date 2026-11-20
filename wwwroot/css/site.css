@@ -2,6 +2,10 @@ html { font-size: 15px; }
 body { background: #f3f6f5; color: #1d2d2b; }
 .navbar { min-height: 64px; }
 .navbar-brand { color: #14665e; }
+.nav-tools { display: flex; align-items: center; gap: 12px; margin-left: auto; }
+.language-toggle { min-width: 42px; height: 34px; border: 1px solid #c8d7d2; border-radius: 4px; background: #fff; color: #176f65; font-size: .78rem; font-weight: 700; }
+.language-toggle:hover, .language-toggle:focus-visible { background: #eaf3f0; border-color: #176f65; }
+.language-toggle { cursor: pointer; }
 .page-shell { padding-top: 30px; padding-bottom: 72px; }
 .page-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
 .page-heading h1 { margin: 0; font-family: Georgia, "Times New Roman", serif; font-size: 2rem; color: #1d2d2b; }
@@ -19,6 +23,7 @@ body { background: #f3f6f5; color: #1d2d2b; }
 .permission-group summary { cursor: pointer; font-weight: 600; }
 .permission-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; }
 @media (max-width: 575.98px) {
+  .nav-tools { justify-content: space-between; width: 100%; margin-top: 8px; padding: 8px 0; border-top: 1px solid #e6ece9; }
   .page-heading { align-items: start; flex-direction: column; }
   .page-heading .btn { width: 100%; }
   .page-shell { padding-top: 18px; }

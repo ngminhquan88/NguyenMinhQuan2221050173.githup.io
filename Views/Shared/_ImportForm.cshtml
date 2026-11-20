@@ -3,19 +3,19 @@
     @Html.AntiForgeryToken()
     <input type="hidden" name="entity" value="@Model" />
     <div class="modal-header">
-        <div><p class="eyebrow mb-1">IMPORT EXCEL</p><h2 class="modal-title fs-5">Nhập @(Model == "students" ? "sinh viên" : "khoa")</h2></div>
+        <div><p class="eyebrow mb-1" data-i18n="import.eyebrow">IMPORT EXCEL</p><h2 class="modal-title fs-5" data-i18n="@(Model == "students" ? "import.students" : "import.departments")">Nhập @(Model == "students" ? "sinh viên" : "khoa")</h2></div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
     </div>
     <div class="modal-body">
         <div class="alert alert-danger d-none" data-form-error role="alert"></div>
-        <label class="form-label" for="importFile">Tệp XLSX</label>
+        <label class="form-label" for="importFile" data-i18n="import.file">Tệp XLSX</label>
         <input class="form-control mb-3" id="importFile" name="file" type="file" accept=".xlsx" required />
-        <label class="form-label" for="importMode">Cách nhập</label>
+        <label class="form-label" for="importMode" data-i18n="import.mode">Cách nhập</label>
         <select class="form-select" id="importMode" name="mode">
-            <option value="append">Nối thêm dữ liệu</option>
-            <option value="replace">Ghi đè toàn bộ bảng</option>
+            <option value="append" data-i18n="import.append">Nối thêm dữ liệu</option>
+            <option value="replace" data-i18n="import.replace">Ghi đè toàn bộ bảng</option>
         </select>
-        <p class="form-text mb-0 mt-2">@(Model == "students" ? "Cột: StudentCode, Name, Email, AdmissionYear, ProgramCode, MajorCode, DepartmentName." : "Cột: DepartmentName.") Tệp tối đa 10 MB.</p>
+        <p class="form-text mb-0 mt-2" data-i18n="@(Model == "students" ? "import.studentColumns" : "import.departmentColumns")">@(Model == "students" ? "Cột: StudentCode, Name, Email, AdmissionYear, ProgramCode, MajorCode, DepartmentName. Tệp tối đa 10 MB." : "Cột: DepartmentName. Tệp tối đa 10 MB.")</p>
     </div>
-    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button><button type="submit" class="btn btn-primary">Nhập dữ liệu</button></div>
+    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="actions.cancel">Hủy</button><button type="submit" class="btn btn-primary" data-i18n="import.submit">Nhập dữ liệu</button></div>
 </form>

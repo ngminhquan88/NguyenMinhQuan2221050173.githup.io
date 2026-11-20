@@ -20,6 +20,8 @@ Route mặc định trong `Program.cs` có dạng `/{controller=Home}/{action=In
 
 Controller xử lý request, gọi model/data layer và chọn view. View Razor hiển thị HTML; model định nghĩa dữ liệu và validation. `HomeController` cùng các view trong `Views/Home` giữ ví dụ truyền model, `ViewBag`, `ViewData` và `TempData`.
 
+Giao diện mặc định là tiếng Việt. Dùng nút `EN`/`VI` ở bên phải thanh điều hướng để đổi ngôn ngữ; lựa chọn được lưu trong culture cookie và áp dụng cho các trang tiếp theo.
+
 ## Dữ liệu và migrations
 
 `ApplicationDbContext` chứa Identity, `Student`, `Department` và `RolePermission`. Mỗi sinh viên liên kết một khoa qua `DepartmentId`; không thể xóa khoa đang được sử dụng. Mã sinh viên tạo theo `YY + mã hệ + mã ngành + số thứ tự 4 chữ số`, ví dụ tiền tố `282105` sẽ cấp mã đầu tiên `2821050001`; mã tiếp theo tăng theo các mã đã có trong cùng tiền tố.

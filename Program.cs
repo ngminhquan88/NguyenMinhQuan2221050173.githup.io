@@ -1,3 +1,5 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -26,6 +28,17 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 builder.Services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
 var app = builder.Build();
+var supportedCultures = new[] { new CultureInfo("vi-VN"), new CultureInfo("en-US") };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("vi-VN")
+    .AddSupportedCultures(supportedCultures.Select(culture => culture.Name).ToArray())
+    .AddSupportedUICultures(supportedCultures.Select(culture => culture.Name).ToArray());
+localizationOptions.RequestCultureProviders =
+[
+    new CookieRequestCultureProvider(),
+    new QueryStringRequestCultureProvider()
+];
+app.UseRequestLocalization(localizationOptions);
 
 await using (var scope = app.Services.CreateAsyncScope())
 {

@@ -3,14 +3,14 @@
     @Html.AntiForgeryToken()
     <input asp-for="DepartmentId" type="hidden" />
     <div class="modal-header">
-        <div><p class="eyebrow mb-1">DANH MỤC ĐÀO TẠO</p><h2 class="modal-title fs-5">@(Model.DepartmentId == 0 ? "Thêm khoa" : "Cập nhật khoa")</h2></div>
+        <div><p class="eyebrow mb-1" data-i18n="department.form.eyebrow">DANH MỤC ĐÀO TẠO</p><h2 class="modal-title fs-5" data-i18n="@(Model.DepartmentId == 0 ? "department.form.add" : "department.form.edit")">@(Model.DepartmentId == 0 ? "Thêm khoa" : "Cập nhật khoa")</h2></div>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
     </div>
     <div class="modal-body">
         <div class="alert alert-danger d-none" data-form-error role="alert"></div>
-        <label asp-for="DepartmentName" class="form-label">Tên khoa</label>
+        <label asp-for="DepartmentName" class="form-label" data-i18n="department.form.name">Tên khoa</label>
         <input asp-for="DepartmentName" class="form-control" autofocus />
         <span asp-validation-for="DepartmentName" class="text-danger small"></span>
     </div>
-    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Hủy</button><button type="submit" class="btn btn-primary">Lưu khoa</button></div>
+    <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" data-i18n="actions.cancel">Hủy</button><button type="submit" class="btn btn-primary" data-i18n="actions.save">Lưu</button></div>
 </form>

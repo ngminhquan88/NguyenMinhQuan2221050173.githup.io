@@ -5,20 +5,20 @@
 
 <section class="page-heading">
     <div>
-        <p class="eyebrow">HỆ THỐNG QUẢN LÝ ĐÀO TẠO</p>
-        <h1>Sinh viên</h1>
-        <p class="text-secondary mb-0">@Model.Count hồ sơ đang được quản lý</p>
+        <p class="eyebrow" data-i18n="brand">HỆ THỐNG QUẢN LÝ ĐÀO TẠO</p>
+        <h1 data-i18n="students.title">Sinh viên</h1>
+        <p class="text-secondary mb-0" data-i18n="students.count" data-count="@Model.Count">@Model.Count hồ sơ đang được quản lý</p>
     </div>
     <div class="d-flex gap-2">
-        <button class="btn btn-outline-secondary" data-modal-url="@Url.Action("Form", "Import", new { entity = "students" })" data-modal-title="Nhập sinh viên từ Excel">Nhập Excel</button>
-        <button class="btn btn-primary" data-modal-url="@Url.Action("Form", "Students")" data-modal-title="Thêm sinh viên">Thêm sinh viên</button>
+        <button class="btn btn-outline-secondary" data-modal-url="@Url.Action("Form", "Import", new { entity = "students" })" data-modal-title="Nhập sinh viên từ Excel" data-i18n="import.excel">Nhập Excel</button>
+        <button class="btn btn-primary" data-modal-url="@Url.Action("Form", "Students")" data-modal-title="Thêm sinh viên" data-i18n="students.add">Thêm sinh viên</button>
     </div>
 </section>
 
 <div class="table-responsive data-table-wrap">
     <table class="table align-middle mb-0">
         <thead>
-            <tr><th>Mã sinh viên</th><th>Họ và tên</th><th>Email</th><th>Khoa</th><th class="text-end">Thao tác</th></tr>
+            <tr><th data-i18n="students.code">Mã sinh viên</th><th data-i18n="students.name">Họ và tên</th><th>Email</th><th data-i18n="nav.departments">Khoa</th><th class="text-end" data-i18n="actions">Thao tác</th></tr>
         </thead>
         <tbody>
         @foreach (var student in Model)
@@ -29,14 +29,14 @@
                 <td>@student.Email</td>
                 <td>@student.Department?.DepartmentName</td>
                 <td class="text-end text-nowrap">
-                    <button class="btn btn-sm btn-outline-secondary" data-modal-url="@Url.Action("Form", "Students", new { id = student.Id })" data-modal-title="Sửa hồ sơ">Sửa</button>
-                    <button class="btn btn-sm btn-outline-danger" data-delete-url="@Url.Action("Delete", "Students", new { id = student.Id })">Xóa</button>
+                    <button class="btn btn-sm btn-outline-secondary" data-modal-url="@Url.Action("Form", "Students", new { id = student.Id })" data-modal-title="Sửa hồ sơ" data-i18n="actions.edit">Sửa</button>
+                    <button class="btn btn-sm btn-outline-danger" data-delete-url="@Url.Action("Delete", "Students", new { id = student.Id })" data-i18n="actions.delete">Xóa</button>
                 </td>
             </tr>
         }
         @if (Model.Count == 0)
         {
-            <tr><td colspan="5" class="empty-state">Chưa có sinh viên. Thêm hồ sơ đầu tiên để bắt đầu.</td></tr>
+            <tr><td colspan="5" class="empty-state" data-i18n="students.empty">Chưa có sinh viên. Thêm hồ sơ đầu tiên để bắt đầu.</td></tr>
         }
         </tbody>
     </table>
