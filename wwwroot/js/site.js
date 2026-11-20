@@ -69,6 +69,9 @@ const englishText = {
 const identityVietnamese = {
 	"Log in": "Đăng nhập",
 	"Use a local account to log in.": "Đăng nhập bằng tài khoản của bạn.",
+	"Create a new account.": "Tạo tài khoản mới.",
+	"Register": "Đăng ký",
+	"Confirm Password": "Xác nhận mật khẩu",
 	"Remember me?": "Ghi nhớ đăng nhập",
 	"Forgot your password?": "Quên mật khẩu?",
 	"Register as a new user": "Đăng ký tài khoản mới",
@@ -119,10 +122,27 @@ if (externalServiceMessage) {
 const authForm = document.querySelector("main form#account, main form#registerForm");
 if (authForm) {
 	const authMain = authForm.closest("main");
+	document.body.classList.add("auth-page-active");
 	authMain?.classList.add("auth-layout");
 	authMain?.querySelector(":scope > h1")?.classList.add("auth-page-title");
 	authForm.closest(".col-lg-6")?.classList.add("auth-card");
 	authForm.querySelector("h2")?.classList.add("auth-card-title");
+
+	const isRegister = authForm.id === "registerForm";
+	if (!isRegister) authForm.querySelector('a[href*="/Account/Register"]')?.closest("p")?.remove();
+	const accountSwitch = document.createElement("p");
+	accountSwitch.className = "auth-account-switch";
+	const accountSwitchText = document.createElement("span");
+	const accountSwitchLink = document.createElement("a");
+	accountSwitchText.textContent = isRegister
+		? (document.documentElement.lang === "en" ? "Already have an account?" : "Đã có tài khoản?")
+		: (document.documentElement.lang === "en" ? "New here?" : "Chưa có tài khoản?");
+	accountSwitchLink.href = isRegister ? "/Identity/Account/Login" : "/Identity/Account/Register";
+	accountSwitchLink.textContent = isRegister
+		? (document.documentElement.lang === "en" ? "Sign in" : "Đăng nhập")
+		: (document.documentElement.lang === "en" ? "Register" : "Đăng ký");
+	accountSwitch.append(accountSwitchText, " ", accountSwitchLink);
+	authForm.insertAdjacentElement("afterend", accountSwitch);
 }
 
 document.querySelectorAll('input[type="password"]').forEach((input) => {
