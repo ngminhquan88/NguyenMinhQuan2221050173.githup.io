@@ -10,6 +10,9 @@ const englishText = {
 	"nav.register": "Register",
 	"nav.login": "Sign in",
 	"nav.logout": "Sign out",
+	"footer.title": "HUMG | Academic Management",
+	"footer.description": "Student and department management portal",
+	"footer.copyright": "© 2026 StudentManagement",
 	"students.title": "Students",
 	"students.count": "{count} records managed",
 	"students.add": "Add student",
@@ -101,6 +104,16 @@ if (document.documentElement.lang === "vi") {
 	Object.entries(identityVietnamese).forEach(([source, translated]) => {
 		document.querySelectorAll(`input[placeholder="${source}"]`).forEach(input => input.setAttribute("placeholder", translated));
 	});
+}
+
+const externalServiceMessage = [...document.querySelectorAll("main p")].find(paragraph =>
+	paragraph.textContent.includes("There are no external authentication services configured") ||
+	paragraph.textContent.includes("Chưa cấu hình dịch vụ đăng nhập bên ngoài"));
+if (externalServiceMessage) {
+	const externalColumn = externalServiceMessage.closest(".col-md-6") || externalServiceMessage.closest("section");
+	externalColumn?.remove();
+	const loginForm = document.querySelector('main form input[type="password"]')?.closest("form");
+	loginForm?.closest(".col-md-4")?.classList.add("login-form-column");
 }
 
 function showMessage(message) {
