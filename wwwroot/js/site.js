@@ -116,6 +116,15 @@ if (externalServiceMessage) {
 	loginForm?.closest(".col-md-4")?.classList.add("login-form-column");
 }
 
+const authForm = document.querySelector("main form#account, main form#registerForm");
+if (authForm) {
+	const authMain = authForm.closest("main");
+	authMain?.classList.add("auth-layout");
+	authMain?.querySelector(":scope > h1")?.classList.add("auth-page-title");
+	authForm.closest(".col-lg-6")?.classList.add("auth-card");
+	authForm.querySelector("h2")?.classList.add("auth-card-title");
+}
+
 document.querySelectorAll('input[type="password"]').forEach((input) => {
 	const inputContainer = input.parentElement;
 	inputContainer.classList.add("password-input-container");
