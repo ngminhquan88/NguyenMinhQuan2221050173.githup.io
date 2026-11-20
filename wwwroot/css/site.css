@@ -25,8 +25,8 @@ body { background: #f3f6f5; color: #1d2d2b; }
 .empty-state { padding: 48px 16px !important; color: #657874; text-align: center; }
 .modal-content { border: 0; border-radius: 6px; box-shadow: 0 18px 50px #122c2830; }
 .form-control:focus, .form-select:focus { border-color: #69b4f4; box-shadow: 0 0 0 .2rem #0e7fe122; }
-.password-input-wrap { position: relative; width: 100%; }
-.password-input-wrap .form-control { padding-right: 2.8rem; }
+.password-input-container { position: relative; width: 100%; }
+.password-input-container > .form-control { padding-right: 2.8rem; }
 .password-visibility-toggle { position: absolute; top: 50%; right: 8px; display: grid; width: 34px; height: 34px; padding: 7px; transform: translateY(-50%); place-items: center; border: 0; border-radius: 4px; background: transparent; color: #547086; cursor: pointer; }
 .password-visibility-toggle:hover, .password-visibility-toggle:focus-visible { background: #eaf4ff; color: #0e7fe1; outline: none; }
 .password-visibility-toggle:focus-visible { box-shadow: 0 0 0 2px #0e7fe155; }

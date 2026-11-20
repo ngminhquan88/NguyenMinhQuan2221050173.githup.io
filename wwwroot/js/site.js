@@ -117,17 +117,15 @@ if (externalServiceMessage) {
 }
 
 document.querySelectorAll('input[type="password"]').forEach((input) => {
-	const wrapper = document.createElement("div");
-	wrapper.className = "password-input-wrap";
-	input.parentNode.insertBefore(wrapper, input);
-	wrapper.appendChild(input);
+	const inputContainer = input.parentElement;
+	inputContainer.classList.add("password-input-container");
 
 	const toggle = document.createElement("button");
 	toggle.type = "button";
 	toggle.className = "password-visibility-toggle";
 	toggle.setAttribute("aria-controls", input.id);
 	toggle.setAttribute("aria-pressed", "false");
-	wrapper.appendChild(toggle);
+	inputContainer.appendChild(toggle);
 
 	const isEnglish = document.documentElement.lang === "en";
 	const eyeOpen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
