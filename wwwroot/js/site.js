@@ -116,6 +116,45 @@ if (externalServiceMessage) {
 	loginForm?.closest(".col-md-4")?.classList.add("login-form-column");
 }
 
+document.querySelectorAll('input[type="password"]').forEach((input) => {
+	const wrapper = document.createElement("div");
+	wrapper.className = "password-input-wrap";
+	input.parentNode.insertBefore(wrapper, input);
+	wrapper.appendChild(input);
+
+	const toggle = document.createElement("button");
+	toggle.type = "button";
+	toggle.className = "password-visibility-toggle";
+	toggle.setAttribute("aria-controls", input.id);
+	toggle.setAttribute("aria-pressed", "false");
+	wrapper.appendChild(toggle);
+
+	const isEnglish = document.documentElement.lang === "en";
+	const eyeOpen = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+	const eyeClosed = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 10.6a2 2 0 0 0 2.8 2.8"/><path d="M9.9 5.2A10.7 10.7 0 0 1 12 5c6.4 0 10 7 10 7a15.5 15.5 0 0 1-3.1 3.9"/><path d="M6.2 6.2C3.5 8.1 2 12 2 12s3.6 7 10 7a10.7 10.7 0 0 0 2.1-.2"/></svg>';
+	const showLabel = isEnglish ? "Show password" : "Hiện mật khẩu";
+	const hideLabel = isEnglish ? "Hide password" : "Ẩn mật khẩu";
+	const setVisible = (visible) => {
+		input.type = visible ? "text" : "password";
+		toggle.innerHTML = visible ? eyeOpen : eyeClosed;
+		toggle.setAttribute("aria-label", visible ? hideLabel : showLabel);
+		toggle.title = visible ? hideLabel : showLabel;
+		toggle.setAttribute("aria-pressed", String(visible));
+	};
+	setVisible(false);
+	toggle.addEventListener("pointerenter", (event) => {
+		if (event.pointerType === "mouse") setVisible(true);
+	});
+	toggle.addEventListener("pointerleave", (event) => {
+		if (event.pointerType === "mouse") setVisible(false);
+	});
+	toggle.addEventListener("pointerdown", (event) => {
+		if (event.pointerType === "touch") setVisible(input.type === "password");
+	});
+	toggle.addEventListener("focus", () => setVisible(true));
+	toggle.addEventListener("blur", () => setVisible(false));
+});
+
 function showMessage(message) {
 	const toast = document.querySelector("#appToast");
 	document.querySelector("#appToastMessage").textContent = message;
