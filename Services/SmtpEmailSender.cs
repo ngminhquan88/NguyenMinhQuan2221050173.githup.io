@@ -4,14 +4,29 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace StudentManagement.Services;
 
-public class SmtpEmailSender(IConfiguration configuration) : IEmailSender
+public class SmtpEmailSender(
+    IConfiguration configuration,
+    IWebHostEnvironment environment,
+    ILogger<SmtpEmailSender> logger) : IEmailSender
 {
     public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
         var host = configuration["Email:Smtp:Host"];
         var from = configuration["Email:Smtp:FromAddress"];
         if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(from))
+        {
+            if (environment.IsDevelopment())
+            {
+                logger.LogWarning(
+                    "SMTP is not configured. Development email for {Email}: {Subject}\n{HtmlMessage}",
+                    email,
+                    subject,
+                    htmlMessage);
+                return;
+            }
+
             throw new InvalidOperationException("Configure Email:Smtp:Host and Email:Smtp:FromAddress before sending email.");
+        }
 
         var port = configuration.GetValue("Email:Smtp:Port", 587);
         var username = configuration["Email:Smtp:UserName"];

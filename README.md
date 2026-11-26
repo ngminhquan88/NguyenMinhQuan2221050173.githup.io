@@ -46,6 +46,8 @@ $env:Email__Smtp__Password = "<secret>"
 $env:Email__Smtp__FromAddress = "account@example.com"
 ```
 
+Trong môi trường `Development`, nếu chưa có SMTP, ứng dụng ghi nội dung email xác nhận (có liên kết xác nhận) vào log của `dotnet run` để kiểm thử cục bộ; không gửi thư thật. Môi trường khác yêu cầu SMTP được cấu hình đầy đủ.
+
 Để tạo tài khoản quản trị đầu tiên, đặt `AdminBootstrap__Email` và `AdminBootstrap__Password` trước khi chạy lần đầu. Tài khoản được thêm vào role `Admin` và đánh dấu email đã xác thực để có thể đăng nhập ngay; thay password mẫu bằng secret riêng của bạn.
 
 Trang `/Admin` cho phép tạo/xóa role, gán/gỡ role khỏi người dùng và cấp quyền theo `Controller.Action`. Role `Admin` có toàn quyền. Cookie đăng nhập cần được tạo lại sau khi thay đổi role để claim role cập nhật.
